@@ -1,1 +1,39 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"shopflow-1d1e1","appId":"1:339592140112:android:7eab6198e18a1f05cd0855","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"shopflow-1d1e1","configurations":{"android":"1:339592140112:android:7eab6198e18a1f05cd0855","ios":"1:339592140112:ios:fed85a0741c806dacd0855","macos":"1:339592140112:ios:fed85a0741c806dacd0855","web":"1:339592140112:web:14a3739c8ae73a9bcd0855","windows":"1:339592140112:web:5be40b308f29ce8dcd0855"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "shopflow-1d1e1",
+          "appId": "1:339592140112:android:7eab6198e18a1f05cd0855",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "shopflow-1d1e1",
+          "configurations": {
+            "android": "1:339592140112:android:7eab6198e18a1f05cd0855",
+            "ios": "1:339592140112:ios:fed85a0741c806dacd0855",
+            "macos": "1:339592140112:ios:fed85a0741c806dacd0855",
+            "web": "1:339592140112:web:14a3739c8ae73a9bcd0855",
+            "windows": "1:339592140112:web:5be40b308f29ce8dcd0855"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
