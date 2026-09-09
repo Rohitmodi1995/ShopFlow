@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "339592140112",
+    "project_id": "shopflow-1d1e1",
+    "storage_bucket": "shopflow-1d1e1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339592140112:android:7eab6198e18a1f05cd0855",
+        "android_client_info": {
+          "package_name": "com.app.shopflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339592140112-o2hll2o7ieuu9012q7hs52k35v8pbraj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.shopflow",
+            "certificate_hash": "5060ec5dbd2a8f96de131739ef9efaca2eca801e"
+          }
+        },
+        {
+          "client_id": "339592140112-c17roaepg8i273aqo4td25l0p5ign6ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD4X3NaYoCn1dywznYq1a-Qe8ep2gBcQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339592140112-c17roaepg8i273aqo4td25l0p5ign6ad.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "339592140112-33mcrq61flcspm814nn0j196h4fbi227.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.shopflow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
