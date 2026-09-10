@@ -1,32 +1,18 @@
-import 'package:razorpay_web/razorpay_web.dart';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import '../../core/config/app_config.dart';
 import 'payment_gateway.dart';
 
+@JS('Razorpay')
+extension type RazorpayJS._(JSObject _) implements JSObject {
+  external factory RazorpayJS(JSObject options);
+
+  external void open();
+}
+
 class RazorpayPaymentService implements PaymentGateway {
-  late final Razorpay _razorpay;
-
-  void Function(PaymentSuccessResult result)? _onSuccess;
-  void Function(String message)? _onFailure;
-
-  RazorpayPaymentService() {
-    _razorpay = Razorpay();
-
-    _razorpay.on(
-      Razorpay.EVENT_PAYMENT_SUCCESS,
-      _handlePaymentSuccess,
-    );
-
-    _razorpay.on(
-      Razorpay.EVENT_PAYMENT_ERROR,
-      _handlePaymentError,
-    );
-
-    _razorpay.on(
-      Razorpay.EVENT_EXTERNAL_WALLET,
-      _handleExternalWallet,
-    );
-  }
+  bool _disposed = false;
 
   @override
   void openCheckout({
@@ -43,11 +29,15 @@ class RazorpayPaymentService implements PaymentGateway {
       String message,
     ) onFailure,
   }) {
-    _onSuccess = onSuccess;
-    _onFailure = onFailure;
+    if (_disposed) {
+      onFailure(
+        'Unable to open payment gateway.',
+      );
+      return;
+    }
 
     if (!AppConfig.hasRazorpayKey) {
-      _onFailure?.call(
+      onFailure(
         'Razorpay Key ID is not configured.',
       );
       return;
@@ -66,52 +56,60 @@ class RazorpayPaymentService implements PaymentGateway {
       'theme': {
         'color': '#673AB7',
       },
+      'handler': ((JSObject response) {
+        final paymentId =
+            response.getProperty<JSAny?>(
+              'razorpay_payment_id'.toJS,
+            );
+
+        final razorpayOrderId =
+            response.getProperty<JSAny?>(
+              'razorpay_order_id'.toJS,
+            );
+
+        final signature =
+            response.getProperty<JSAny?>(
+              'razorpay_signature'.toJS,
+            );
+
+        onSuccess(
+          PaymentSuccessResult(
+            paymentId: paymentId?.dartify()?.toString(),
+            orderId:
+                razorpayOrderId?.dartify()?.toString(),
+            signature:
+                signature?.dartify()?.toString(),
+          ),
+        );
+      }).toJS,
+      'modal': {
+        'ondismiss': (() {
+          onFailure(
+            'Payment cancelled.',
+          );
+        }).toJS,
+      },
     };
 
-    if (orderId != null &&
-        orderId.trim().isNotEmpty) {
+    if (orderId != null && orderId.trim().isNotEmpty) {
       options['order_id'] = orderId.trim();
     }
 
     try {
-      _razorpay.open(options);
+      final razorpay = RazorpayJS(
+        options.jsify() as JSObject,
+      );
+
+      razorpay.open();
     } catch (_) {
-      _onFailure?.call(
+      onFailure(
         'Unable to open payment gateway.',
       );
     }
   }
 
-  void _handlePaymentSuccess(
-    PaymentSuccessResponse response,
-  ) {
-    _onSuccess?.call(
-      PaymentSuccessResult(
-        paymentId: response.paymentId,
-        orderId: response.orderId,
-        signature: response.signature,
-      ),
-    );
-  }
-
-  void _handlePaymentError(
-    PaymentFailureResponse response,
-  ) {
-    _onFailure?.call(
-      response.message ??
-          'Payment failed. Please try again.',
-    );
-  }
-
-  void _handleExternalWallet(
-    ExternalWalletResponse response,
-  ) {}
-
   @override
   void dispose() {
-    _razorpay.clear();
-
-    _onSuccess = null;
-    _onFailure = null;
+    _disposed = true;
   }
 }

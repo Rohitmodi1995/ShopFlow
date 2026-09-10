@@ -1,16 +1,61 @@
-# shopflow
+# 🛒 ShopFlow
 
-A new Flutter project.
+ShopFlow is a Flutter-based e-commerce application developed for **Android and Web**.  
+The project demonstrates real-world Flutter development practices using **MVVM architecture, Provider, Firebase, Hive, Razorpay, automated testing, and CI/CD**.
 
-## Getting Started
+## 🔗 Project Links
 
-This project is a starting point for a Flutter application.
+- 🌐 **Live Web Demo:** https://shopflow-1d1e1.web.app/
+- 📱 **Android APK:** https://github.com/Rohitmodi1995/ShopFlow/releases/tag/v1.0.0
+- 💻 **Source Code:** https://github.com/Rohitmodi1995/ShopFlow
 
-A few resources to get you started if this is your first Flutter project:
+## ✨ Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Authentication
+- Email and Password Sign Up / Login
+- Google Sign-In
+- Email Verification
+- Forgot Password
+- Change Password
+- Account Deletion
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Shopping
+- Product Browsing
+- Product Details
+- Product Categories
+- Wishlist
+- Shopping Cart
+- Buy Now
+- Cart Checkout
+- Address Management
+
+### Payments & Orders
+- Razorpay Payment Integration
+- Order Placement
+- Order Success Flow
+- My Orders
+- Order Details
+- Order History
+
+### Application
+- Firebase Cloud Firestore
+- Hive Local Storage
+- Push Notifications
+- Dark Mode
+- Responsive UI for Android and Web
+- Reusable UI Components
+
+## 🏗️ Architecture
+
+ShopFlow follows **MVVM (Model-View-ViewModel)** with the **Repository Pattern**.
+
+```text
+UI / View
+   ↓
+ViewModel
+   ↓
+Repository
+   ↓
+Service
+   ↓
+Firebase / API / Local Storage
